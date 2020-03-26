@@ -1,4 +1,8 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package snake;
 
 
@@ -175,7 +179,7 @@ public class Snake extends JFrame implements Runnable {
             repaint();
             
             
-            double seconds = .04;    //time that 1 frame takes.
+            double seconds = .1;    //time that 1 frame takes.
             int miliseconds = (int) (1000.0 * seconds);
             try {
                 Thread.sleep(miliseconds);
@@ -194,41 +198,44 @@ public class Snake extends JFrame implements Runnable {
             for (int zcolumn = 0;zcolumn < numColumns;zcolumn++)
                 board[zrow][zcolumn] = EMPTY;
         }
-//Set row 2, column 3 to be a snake box that will be drawn gray.
-        board[2][3] = SNAKE;
-        board[2][4] = SNAKE;
-        board[2][5] = SNAKE;
-        board[2][6] = SNAKE;
-        board[3][2] = SNAKE;
-        board[4][2] = SNAKE;
-        board[5][3] = SNAKE;
-        board[5][4] = SNAKE;
-        board[5][5] = SNAKE;
-        board[5][6] = SNAKE;
-        board[6][7] = SNAKE;
-        board[7][7] = SNAKE;
-        board[8][6] = SNAKE;
-        board[8][5] = SNAKE;
-        board[8][4] = SNAKE;
-        board[8][3] = SNAKE;
+//Fill in the values in the 2D array that will display your initials.
+//Below is the letter J using for loops.
+        for (int i=3;i<7;i++)
+            board[2][i] = SNAKE;
         
-        board[2][10] = SNAKE;
-        board[2][11] = SNAKE;
-        board[2][12] = SNAKE;
-        board[3][10] = SNAKE;
-        board[3][13] = SNAKE;
-        board[4][10] = SNAKE;
-        board[4][13] = SNAKE;
-        board[5][11] = SNAKE;
-        board[5][12] = SNAKE;
-        board[5][10] = SNAKE;
-        board[6][10] = SNAKE;
-        board[6][13] = SNAKE;
-        board[7][10] = SNAKE;
-        board[7][13] = SNAKE;
-        board[8][10] = SNAKE;
-        board[8][11] = SNAKE;
-        board[8][12] = SNAKE;
+        for (int i=3;i<5;i++)
+            board[i][2] = SNAKE;
+        
+        for (int i=3;i<7;i++)
+            board[5][i] = SNAKE;
+        
+        for (int i=3;i<7;i++)
+            board[8][i] = SNAKE;
+        
+        for (int i=7;i>5;i--)
+            board[i][7] = SNAKE;
+
+//Below is the Letter Y using for loops.
+        for (int i=8;i>1;i--)
+            board[i][10] = SNAKE;
+        
+        for (int i=10;i<13;i++)
+            board[2][i] = SNAKE;
+        
+        for (int i=10;i<13;i++)
+            board[5][i] = SNAKE;
+        
+        for (int i=10;i<13;i++)
+            board[8][i] = SNAKE;
+        
+         for (int i=7;i>5;i--)
+            board[i][13] = SNAKE;
+         
+         for (int i=4;i>2;i--)
+            board[i][13] = SNAKE;
+        
+        
+
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
