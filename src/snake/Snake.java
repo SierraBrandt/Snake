@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+//main game
 package snake;
 
 
@@ -198,44 +194,13 @@ public class Snake extends JFrame implements Runnable {
             for (int zcolumn = 0;zcolumn < numColumns;zcolumn++)
                 board[zrow][zcolumn] = EMPTY;
         }
-//Fill in the values in the 2D array that will display your initials.
-//Below is the letter J using for loops.
-        for (int i=3;i<7;i++)
-            board[2][i] = SNAKE;
-        
-        for (int i=3;i<5;i++)
-            board[i][2] = SNAKE;
-        
-        for (int i=3;i<7;i++)
-            board[5][i] = SNAKE;
-        
-        for (int i=3;i<7;i++)
-            board[8][i] = SNAKE;
-        
-        for (int i=7;i>5;i--)
-            board[i][7] = SNAKE;
 
-//Below is the Letter Y using for loops.
-        for (int i=8;i>1;i--)
-            board[i][10] = SNAKE;
+       currentRow = numRows/2;
+       currentColumn = numColumns/2;
+       board[currentRow][currentColumn]=SNAKE;
         
-        for (int i=10;i<13;i++)
-            board[2][i] = SNAKE;
-        
-        for (int i=10;i<13;i++)
-            board[5][i] = SNAKE;
-        
-        for (int i=10;i<13;i++)
-            board[8][i] = SNAKE;
-        
-         for (int i=7;i>5;i--)
-            board[i][13] = SNAKE;
-         
-         for (int i=4;i>2;i--)
-            board[i][13] = SNAKE;
-        
-        
-
+       columnDir = 0;
+       rowDir = 1;
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -247,8 +212,9 @@ public class Snake extends JFrame implements Runnable {
             }
             reset();
         }
-        
-        
+        currentRow += columnDir;
+        currentColumn += rowDir;
+         board[currentRow][currentColumn]= SNAKE;
     }
 
 ////////////////////////////////////////////////////////////////////////////
