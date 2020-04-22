@@ -34,6 +34,8 @@ public class Snake extends JFrame implements Runnable {
     int columnDir;
     int rowDir;
     
+    boolean playGame;
+    
     static Snake frame;
     public static void main(String[] args) {
         frame = new Snake();
@@ -78,13 +80,21 @@ public class Snake extends JFrame implements Runnable {
 
             public void keyPressed(KeyEvent e) {
                 if (e.VK_UP == e.getKeyCode()) {
-
+                    playGame = true;
+                    columnDir = 0;
+                    rowDir = -1;
                 } else if (e.VK_DOWN == e.getKeyCode()) {
-
+                    playGame = true;
+                    columnDir = 0;
+                    rowDir = 1;
                 } else if (e.VK_LEFT == e.getKeyCode()) {
-
+                    playGame = true;
+                    columnDir = -1;
+                    rowDir = 0;
                 } else if (e.VK_RIGHT == e.getKeyCode()) {
-
+                    playGame = true;
+                    columnDir = 1;
+                    rowDir = 0;
                 }
                 repaint();
             }
@@ -199,8 +209,8 @@ public class Snake extends JFrame implements Runnable {
        currentColumn = numColumns/2;
        board[currentRow][currentColumn]=SNAKE;
         
-       columnDir = 0;
-       rowDir = 1;
+       playGame = false;
+       
     }
 /////////////////////////////////////////////////////////////////////////
     public void animate() {
@@ -212,9 +222,13 @@ public class Snake extends JFrame implements Runnable {
             }
             reset();
         }
-        currentRow += columnDir;
-        currentColumn += rowDir;
+         
+         if(!playGame)
+             return;
+         currentColumn+= columnDir;
+         currentRow += rowDir;
          board[currentRow][currentColumn]= SNAKE;
+        
     }
 
 ////////////////////////////////////////////////////////////////////////////
