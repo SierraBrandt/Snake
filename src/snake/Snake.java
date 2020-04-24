@@ -35,6 +35,7 @@ public class Snake extends JFrame implements Runnable {
     int rowDir;
     
     boolean playGame;
+    boolean endGame;
     
     static Snake frame;
     public static void main(String[] args) {
@@ -169,11 +170,16 @@ public class Snake extends JFrame implements Runnable {
                     getY(0)+zrow*getHeight2()/numRows,
                     getWidth2()/numColumns,
                     getHeight2()/numRows);
-                }  
+                }
+               
 
             }
         }
-
+        if(endGame){
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Andy",Font.PLAIN,70));
+        g.drawString("GAME OVER",40,300);
+        }
         gOld.drawImage(image, 0, 0, null);
     }
 
@@ -210,6 +216,7 @@ public class Snake extends JFrame implements Runnable {
        board[currentRow][currentColumn]=SNAKE;
         
        playGame = false;
+       endGame = false;
        
     }
 /////////////////////////////////////////////////////////////////////////
@@ -227,8 +234,19 @@ public class Snake extends JFrame implements Runnable {
              return;
          currentColumn+= columnDir;
          currentRow += rowDir;
-         board[currentRow][currentColumn]= SNAKE;
+        if (currentColumn < 0) //snake too far to the left.
+        endGame = true;
+        else if (currentColumn > WINDOW_WIDTH)
+        endGame = true;
+        else if (currentRow < 0)
+        endGame = true;
+        else if (currentRow > WINDOW_HEIGHT)
+        endGame = true;
+        else
+        board[currentRow][currentColumn]= SNAKE;
         
+        if(endGame)
+            return;
     }
 
 ////////////////////////////////////////////////////////////////////////////
