@@ -37,6 +37,8 @@ public class Snake extends JFrame implements Runnable {
     boolean playGame;
     boolean endGame;
     
+    int score;
+    int highScore;
     static Snake frame;
     public static void main(String[] args) {
         frame = new Snake();
@@ -170,6 +172,7 @@ public class Snake extends JFrame implements Runnable {
                     getY(0)+zrow*getHeight2()/numRows,
                     getWidth2()/numColumns,
                     getHeight2()/numRows);
+                    
                 }
                
 
@@ -180,6 +183,11 @@ public class Snake extends JFrame implements Runnable {
         g.setFont(new Font("Andy",Font.PLAIN,70));
         g.drawString("GAME OVER",40,300);
         }
+        
+        g.setColor(Color.BLACK);
+        g.setFont(new Font("Andy",Font.PLAIN,15));
+        g.drawString("Score: " + score,20, 42);
+        g.drawString("High Score: " + highScore,400,42);
         gOld.drawImage(image, 0, 0, null);
     }
 
@@ -218,9 +226,10 @@ public class Snake extends JFrame implements Runnable {
        playGame = false;
        endGame = false;
        
+       score = 0;
     }
 /////////////////////////////////////////////////////////////////////////
-    public void animate() {
+      public void animate() {
         if (animateFirstTime) {
             animateFirstTime = false;
             if (xsize != getSize().width || ysize != getSize().height) {
@@ -229,25 +238,48 @@ public class Snake extends JFrame implements Runnable {
             }
             reset();
         }
-         
-         if(!playGame)
-             return;
-         currentColumn+= columnDir;
-         currentRow += rowDir;
-        if (currentColumn < 0) //snake too far to the left.
-        endGame = true;
-        else if (currentColumn > WINDOW_WIDTH)
-        endGame = true;
-        else if (currentRow < 0)
-        endGame = true;
-        else if (currentRow > WINDOW_HEIGHT)
-        endGame = true;
-        else
-        board[currentRow][currentColumn]= SNAKE;
-        
-        if(endGame)
+        if (endGame)
             return;
+        
+//return if the game is not playing.        
+        if (!playGame)
+            return;
+//Set the next value in the 2D array so that the snake body adds to the right.        
+
+        currentRow += rowDir;
+        currentColumn += columnDir;
+//The game is over if the head of the snake goes off the board.        
+        if (currentRow < 0)
+        {
+            endGame = true;
+        }
+        else if (currentRow >= numRows)
+        {
+            endGame = true;
+        }
+        else if (currentColumn < 0)
+        {
+            endGame = true;
+        }
+        else if (currentColumn >= numColumns )
+        {
+            endGame = true;
+        }
+        else if (board[currentRow][currentColumn]== SNAKE)
+        {
+            endGame = true;
+
+        }
+            
+        else
+        {
+            board[currentRow][currentColumn] = SNAKE;
+            score ++;
+                    if (score>=highScore)
+                        highScore = score;
+        }
     }
+
 
 ////////////////////////////////////////////////////////////////////////////
     public void start() {
