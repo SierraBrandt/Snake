@@ -6,6 +6,7 @@ import java.io.*;
 import java.awt.*;
 import java.awt.geom.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class Snake extends JFrame implements Runnable {
@@ -19,6 +20,7 @@ public class Snake extends JFrame implements Runnable {
     static final int WINDOW_WIDTH = 2*(WINDOW_BORDER + XBORDER) + numColumns*30;
     static final int WINDOW_HEIGHT = YTITLE + WINDOW_BORDER + 2 * YBORDER + numRows*30;
     
+   
     boolean animateFirstTime = true;
     int xsize = -1;
     int ysize = -1;
@@ -27,12 +29,18 @@ public class Snake extends JFrame implements Runnable {
 
     final int EMPTY = 0;
     final int SNAKE = 1;
+    final int BAD_BOX = 2;
+     
+    int timeCount;
+            
     int board[][];
 
     int currentRow;
     int currentColumn;
     int columnDir;
     int rowDir;
+    
+ 
     
     boolean playGame;
     boolean endGame;
@@ -174,6 +182,15 @@ public class Snake extends JFrame implements Runnable {
                     getHeight2()/numRows);
                     
                 }
+                if (board[zrow][zcolumn] == BAD_BOX)
+                {
+                    g.setColor(Color.red);
+                    g.fillRect(getX(0)+zcolumn*getWidth2()/numColumns,
+                    getY(0)+zrow*getHeight2()/numRows,
+                    getWidth2()/numColumns,
+                    getHeight2()/numRows);
+                    
+                }
                
 
             }
@@ -227,6 +244,7 @@ public class Snake extends JFrame implements Runnable {
        endGame = false;
        
        score = 0;
+       timeCount = 0;
     }
 /////////////////////////////////////////////////////////////////////////
       public void animate() {
@@ -269,8 +287,12 @@ public class Snake extends JFrame implements Runnable {
         {
             endGame = true;
 
-        }
-            
+        } 
+        else if (board[currentRow][currentColumn]== BAD_BOX)
+        {
+            endGame = true;
+
+        } 
         else
         {
             board[currentRow][currentColumn] = SNAKE;
@@ -278,6 +300,14 @@ public class Snake extends JFrame implements Runnable {
                     if (score>=highScore)
                         highScore = score;
         }
+        if (timeCount % 8 == 2) //Should be true every 2 seconds.
+        {
+        //add a bad box to a random location on the board.
+        int randomRow = (int)(Math.random()*currentRow);
+        int randomColumn = (int)(Math.random()*currentColumn);
+        board[randomRow][randomColumn] = BAD_BOX;
+        }   
+        timeCount++;
     }
 
 
