@@ -300,7 +300,7 @@ public class Snake extends JFrame implements Runnable {
                     if (score>=highScore)
                         highScore = score;
         }
-        if (timeCount % 8 == 2) //Should be true every 2 seconds.
+        if (timeCount % 20 == 19) //Should be true every 2 seconds.
         {
         //add a bad box to a random location on the board.
         int randomRow = (int)(Math.random()*currentRow);
