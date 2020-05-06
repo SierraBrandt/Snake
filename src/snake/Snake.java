@@ -172,16 +172,7 @@ public class Snake extends JFrame implements Runnable {
         {
             for (int zcolumn=0;zcolumn<numColumns;zcolumn++)
             {
-//If the location on the board is snake, then draw the box gray.                
-                if (board[zrow][zcolumn] == SNAKE)
-                {
-                    g.setColor(Color.gray);
-                    g.fillRect(getX(0)+zcolumn*getWidth2()/numColumns,
-                    getY(0)+zrow*getHeight2()/numRows,
-                    getWidth2()/numColumns,
-                    getHeight2()/numRows);
-                    
-                }
+//If the location on the board is snake, then draw the box gray.   
                 if (board[zrow][zcolumn] == BAD_BOX)
                 {
                     g.setColor(Color.red);
@@ -191,6 +182,16 @@ public class Snake extends JFrame implements Runnable {
                     getHeight2()/numRows);
                     
                 }
+                if (board[zrow][zcolumn] == SNAKE)
+                {
+                    g.setColor(Color.gray);
+                    g.fillRect(getX(0)+zcolumn*getWidth2()/numColumns,
+                    getY(0)+zrow*getHeight2()/numRows,
+                    getWidth2()/numColumns,
+                    getHeight2()/numRows);
+                    
+                }
+                
                
 
             }
@@ -269,21 +270,21 @@ public class Snake extends JFrame implements Runnable {
 //The game is over if the head of the snake goes off the board.        
         if (currentRow < 0)
         {
-            endGame = true;
+            currentRow = numRows;
         }
         else if (currentRow >= numRows)
         {
-            endGame = true;
+            currentRow = -1;
         }
         else if (currentColumn < 0)
         {
-            endGame = true;
+            currentColumn = numColumns;
         }
         else if (currentColumn >= numColumns )
         {
-            endGame = true;
-        }
-        else if (board[currentRow][currentColumn]== SNAKE)
+            currentColumn = -1;
+            
+        }else if (board[currentRow][currentColumn]== SNAKE)
         {
             endGame = true;
 
@@ -300,6 +301,7 @@ public class Snake extends JFrame implements Runnable {
                     if (score>=highScore)
                         highScore = score;
         }
+        
         if (timeCount % 20 == 19) //Should be true every 2 seconds.
         {
         //add a bad box to a random location on the board.
